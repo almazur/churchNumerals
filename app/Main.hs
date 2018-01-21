@@ -1,6 +1,9 @@
 module Main where
 
-import Lib
-
+import ChurchBool
+import ChurchEq
+import ChurchNumerals
+    
 main :: IO ()
-main = someFunc
+main = do
+    print ((cTrue) "lewy" "prawy")

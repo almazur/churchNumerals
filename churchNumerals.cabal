@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: b9254f7e165a057808f12c28107c0930623ddf1de5a9754e12478d57cae2fd8f
+-- hash: 0e887f2cf6ef8580dbb3b30e0d9fc5d1e313683ae0d399b97ef38b07fbf87f5c
 
 name:           churchNumerals
 version:        0.1.0.0
@@ -31,7 +31,9 @@ library
   build-depends:
       base >=4.7 && <5
   exposed-modules:
-      Lib
+      ChurchBool
+      ChurchEq
+      ChurchNumerals
   other-modules:
       Paths_churchNumerals
   default-language: Haskell2010
