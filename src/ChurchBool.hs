@@ -1,6 +1,6 @@
-{-# LANGUAGE RankNTypes #-}
+{-# LANGUAGE FlexibleInstances, RankNTypes, TypeFamilies  #-}
 module ChurchBool
-    (CBool,cTrue,cFalse,cNot,cAnd
+    (CBool,cTrue,cFalse,cNot,cAnd,cOr,cIf,toString
     ) where
 type CBool = forall a. a -> a -> a
 
@@ -13,6 +13,23 @@ cNot a = a (cFalse) (cTrue)
 
 cAnd :: CBool -> CBool -> CBool
 cAnd x y = x y x
+
+cOr :: CBool -> CBool -> CBool
+cOr x y = x x y
+
+-- syntactic sugar
+cIf :: CBool -> CBool
+cIf cond = cond
+
+toString :: CBool -> String
+toString b = b "cTrue" "cFalse"
+
+-- wzięte stąd: https://gist.github.com/tmhedberg/1535396
+-- TypeFamilies do ogarnięcia lub funkcja do zmiany i używamy powyższego toString
+-- o TypeFamilies: https://wiki.haskell.org/GHC/Type_families
+-- "in type theory is a partial function at the type level"
+instance a ~ String => Show (a -> a -> a) where
+    show cb = cb "cTrue" "cFalse"
 
 
 --data CBool = CBool {instCBool :: forall a. a -> a -> a}
