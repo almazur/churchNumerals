@@ -1,9 +1,12 @@
 module Main where
 
-import ChurchBool
-import ChurchEq
-import ChurchNumerals
+--import ChurchBool
+--import ChurchEq
+--import ChurchOrd
+import ChurchNumeral
     
 main :: IO ()
 main = do
-    print ((cTrue) "lewy" "prawy")
+    let one = succ zero
+    let two = one + one
+    print (two)

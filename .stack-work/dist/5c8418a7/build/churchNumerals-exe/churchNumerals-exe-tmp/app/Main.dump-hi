@@ -1,10 +1,10 @@
 
 ==================== FINAL INTERFACE ====================
-2018-01-21 16:25:00.5305235 UTC
+2018-01-21 18:26:11.3638188 UTC
 
 interface main:Main 8022
-  interface hash: 5b28d98e92d84fc085993575451d8b3a
-  ABI hash: 42ee704e9c9ad67fffcd5861621a0254
+  interface hash: c4a41e9def262db38901848f8d6ad439
+  ABI hash: 4f2e94487dee70b80299ab05ab955927
   export-list hash: bdc76fedbd78d8646959ea162797cc15
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: 9a3e5105f4a0a75de562a948cc3c3e8c
@@ -25,9 +25,9 @@ family instance modules: base-4.10.1.0:Control.Applicative
                          base-4.10.1.0:GHC.TypeNats
 import  -/  base-4.10.1.0:Prelude a93a9400cc0c816c2ee5f39399baa7a0
 import  -/  base-4.10.1.0:System.IO 1fb8f1d116df69c8750950ac088a90e6
-import  -/  churchNumerals-0.1.0.0:ChurchBool e56597581ab2065623733a2de56b0211
-import  -/  churchNumerals-0.1.0.0:ChurchEq 54a325a0f504bcad915052b0b8a5338e
-import  -/  churchNumerals-0.1.0.0:ChurchNumerals 07e910c890c5ec138c34a38556e40b68
+import  -/  churchNumerals-0.1.0.0:ChurchBool aa2a732100ea5259ea625076a496e9c1
+import  -/  churchNumerals-0.1.0.0:ChurchEq db834ae7badb0f39e8fd6fb34da2eb35
+import  -/  churchNumerals-0.1.0.0:ChurchNumerals 6fca1763cf0ef11f4f013e3335847a36
 import  -/  ghc-prim-0.5.1.1:GHC.Types b1fd0716441595db508c1a74387bf394
 9d72b2fddb818bcd8919052935e0f1f3
   $trModule :: GHC.Types.Module
@@ -47,12 +47,12 @@ e5875966b74dad2d29772660b8a75e33
 d026be77cb9ced20e35a61514e0458aa
   $trModule4 :: GHC.Prim.Addr#
   {- HasNoCafRefs, Unfolding: ("main"#) -}
-c23150e5abde29f713974a3f5219ddab
+3b899e5fe6cbf9b2a7c8ae783282fc9e
   main :: GHC.Types.IO ()
   {- Arity: 1,
      Unfolding: InlineRule (0, True, True)
                 Main.main1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
-0ae2a00f32806250d30a6e60f75e0503
+af9504dff9690e1e6a63924342f21124
   main1 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
@@ -61,22 +61,22 @@ c23150e5abde29f713974a3f5219ddab
                    GHC.IO.Handle.FD.stdout
                    Main.main2
                    GHC.Types.True) -}
-6f06f3c6394942061d09ea05e52a9e5c
+f48ba01b069a959d622cca707de2a70b
   main2 :: [GHC.Types.Char]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ GHC.Types.Char
                    GHC.Show.$fShow(,)3
                    Main.main3) -}
-6ee10f54ab9b5f6243fc465615b180e0
+f1f61cb6957e83410ace7a3e4f98501a
   main3 :: GHC.Base.String
   {- Unfolding: (GHC.Show.showLitString
                    (GHC.CString.unpackCString# Main.main4)
                    GHC.Show.$fShow[]1) -}
-0b73e46bd6a5c6d1a3f7b5314a3db82c
+924c1f5c42bd8fa6b377feb1f8ab2e3d
   main4 :: GHC.Prim.Addr#
-  {- HasNoCafRefs, Unfolding: ("lewy"#) -}
-181c01652292d92e333efa02cda3a806
+  {- HasNoCafRefs, Unfolding: ("prawy"#) -}
+5d248af8b44004f2cf896e946d9d9274
   main5 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)

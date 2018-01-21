@@ -1,6 +1,6 @@
 {-# LANGUAGE RankNTypes #-}
 module ChurchBool
-    (CBool,cTrue,cFalse,cNot,cAnd
+    (CBool,cTrue,cFalse,cNot,cAnd,cOr,cIf
     ) where
 type CBool = forall a. a -> a -> a
 
@@ -13,6 +13,13 @@ cNot a = a (cFalse) (cTrue)
 
 cAnd :: CBool -> CBool -> CBool
 cAnd x y = x y x
+
+cOr :: CBool -> CBool -> CBool
+cOr x y = x x y
+
+-- syntactic sugar
+cIf :: CBool -> CBool
+cIf cond = cond
 
 
 --data CBool = CBool {instCBool :: forall a. a -> a -> a}
