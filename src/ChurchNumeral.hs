@@ -23,32 +23,39 @@ module ChurchNumeral ((.==),zero,inc) where
     zero :: CNum
     zero = CNum (\_ x -> x)
 
-    -- instances
+    -- instances, zakomentowane te ze zwykłymi operatorami
     instance CEq CNum where
-        m .== n = cAnd (isZero (m .- n)) ((isZero ((n .- m))))
+        --m .== n = cAnd (isZero (m .- n)) ((isZero ((n .- m))))
+        m .== n = cAnd (isZero (m - n)) ((isZero ((n - m))))
     
     instance COrd CNum where
-        m .<= n = (isZero (m .- n))
+        --m .<= n = (isZero (m .- n))
+        m .<= n = (isZero (m - n))
     
     instance Show CNum where
         show (CNum n) = show $ n (+1) 0
 
-    --instance Num CNum where 
-    --    x + y = instCNum n inc m
-    --    x - y = instCNum n dec m
+    instance Num CNum where 
+        x + y = instCNum x inc y
+        x - y = instCNum y dec x
+        (CNum x) * (CNum y) = CNum (x.y)
+        abs n = n
+        signum n = cIf (n .== zero) zero (inc zero)
+        fromInteger i = if i == 0
+            then zero
+            else inc(fromInteger(i-1))
 
     
+    --  TODO:  POWER = lambda m : lambda n : n(m)
 
-    --(.+) :: CNum -> CNum -> CNum
-    --m .+ n = instCNum n inc m
+    (.+) :: CNum -> CNum -> CNum
+    m .+ n = instCNum n inc m
 
     (.-) :: CNum -> CNum -> CNum
     m .- n = instCNum n dec m
 
     (.*) :: CNum -> CNum -> CNum
     (CNum m) .* (CNum n) = CNum (m.n)
-
-    --  TODO:  POW = lambda m : lambda n : n(m)
 
     church :: Int -> CNum
     church i = if i == 0

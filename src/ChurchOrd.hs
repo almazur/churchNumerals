@@ -4,7 +4,6 @@ module ChurchOrd
     ) where
 import ChurchBool
 import ChurchEq
-import ChurchNumeral
 
 class CEq c => COrd c where
     --ewentualnie: cCompare :: a -> a -> Ordering
