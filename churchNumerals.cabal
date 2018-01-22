@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 2d9ce6d01668b256044750023a5bd267879a711c3249fb8afb7569cf7af4806a
+-- hash: 5e62bdf956570091d0b34e59decc02e3c338761c3c5bba9f47a257cb45736c0a
 
 name:           churchNumerals
 version:        0.1.0.0
@@ -33,6 +33,7 @@ library
   exposed-modules:
       ChurchBool
       ChurchEq
+      ChurchList
       ChurchNumeral
       ChurchOrd
       ChurchList
