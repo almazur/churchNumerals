@@ -5,9 +5,13 @@ module ChurchBool
 type CBool = forall a. a -> a -> a
 
 cTrue,cFalse :: CBool
-cTrue l _ = l
-cFalse _ r = r
+--cTrue l _ = l
+--cFalse _ r = r
+cTrue true false = true
+cFalse true false = false
+--IMO czytelniej - Mateusz
 
+--Logic operators
 cNot :: CBool -> CBool
 cNot a = a (cFalse) (cTrue)
 
@@ -17,9 +21,14 @@ cAnd x y = x y x
 cOr :: CBool -> CBool -> CBool
 cOr x y = x x y
 
+cXor :: CBool -> CBool -> CBool
+cXor x y = x (cNot y) y
+
 -- syntactic sugar
 cIf :: CBool -> CBool
-cIf cond = cond
+--cIf cond = cond
+cIf cond trueStat falseStat = cond (trueStat) (falseStat)
+--IMO czytelniej - Mateusz
 
 toString :: CBool -> String
 toString b = b "cTrue" "cFalse"

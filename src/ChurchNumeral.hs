@@ -23,6 +23,9 @@ module ChurchNumeral ((.==),zero,inc) where
     zero :: CNum
     zero = CNum (\_ x -> x)
 
+    one :: CNum
+    one = inc zero
+
     -- instances, zakomentowane te ze zwykłymi operatorami
     instance CEq CNum where
         --m .== n = cAnd (isZero (m .- n)) ((isZero ((n .- m))))
@@ -44,10 +47,28 @@ module ChurchNumeral ((.==),zero,inc) where
         fromInteger i = if i == 0
             then zero
             else inc(fromInteger(i-1))
+  
+    churchToInteger :: CNum -> Int
+    churchToInteger cNum = instCNum cNum (+1) $ 0
 
+    cMod :: CNum -> CNum -> CNum
+    cMod m n = cIf (m .< n) (m) (cMod (m - n) n)
+
+    cDiv :: CNum -> CNum -> CNum
+    cDiv m n = cIf (m .< n) (zero) (one + cDiv (m - n) n)
     
-    --  TODO:  POWER = lambda m : lambda n : n(m)
+    cDivMod m n = (cDiv m n,cMod m n)
 
+    --(.^) :: CNum -> CNum -> CNum  
+    --base .^ exp = (instCNum exp) (instCNum base)
+    --IMO takie nazwy czytelnie pokazują co się dzieje - Mateusz
+    --error :<
+    --      Couldn't match expected type ‘CNum’
+    --      with actual type ‘(a0 -> a0) -> a0 -> a0’
+
+
+    --Rozumiem że to już niepotrzebne :)
+    {-
     (.+) :: CNum -> CNum -> CNum
     m .+ n = instCNum n inc m
 
@@ -61,3 +82,4 @@ module ChurchNumeral ((.==),zero,inc) where
     church i = if i == 0
         then zero
         else inc(church(i-1))
+    -}
