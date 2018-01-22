@@ -33,12 +33,17 @@ cIf cond trueStat falseStat = cond (trueStat) (falseStat)
 toString :: CBool -> String
 toString b = b "cTrue" "cFalse"
 
+
+
 -- wzięte stąd: https://gist.github.com/tmhedberg/1535396
 -- TypeFamilies do ogarnięcia lub funkcja do zmiany i używamy powyższego toString
 -- o TypeFamilies: https://wiki.haskell.org/GHC/Type_families
 -- "in type theory is a partial function at the type level"
 instance a ~ String => Show (a -> a -> a) where
     show cb = cb "cTrue" "cFalse"
+
+instance a ~ String => Eq (a -> a -> a) where
+    b1 == b2 = (show b1) == (show b2)
 
 
 --data CBool = CBool {instCBool :: forall a. a -> a -> a}

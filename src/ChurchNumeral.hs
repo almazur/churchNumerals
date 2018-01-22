@@ -26,10 +26,13 @@ module ChurchNumeral ((.==),zero,inc) where
     one :: CNum
     one = inc zero
 
-    -- instances, zakomentowane te ze zwykłymi operatorami
+    -- instances, zakomentowane te ze naszymi operatorami
     instance CEq CNum where
         --m .== n = cAnd (isZero (m .- n)) ((isZero ((n .- m))))
         m .== n = cAnd (isZero (m - n)) ((isZero ((n - m))))
+    
+    instance Eq CNum where
+        m == n = (m .== n) True False
     
     instance COrd CNum where
         --m .<= n = (isZero (m .- n))
