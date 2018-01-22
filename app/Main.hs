@@ -4,6 +4,7 @@ import ChurchBool
 import ChurchEq
 import ChurchOrd
 import ChurchNumeral
+import ChurchList
     
 main :: IO ()
 main = do
