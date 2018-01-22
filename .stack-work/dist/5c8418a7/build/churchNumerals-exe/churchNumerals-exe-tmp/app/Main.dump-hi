@@ -1,10 +1,10 @@
 
 ==================== FINAL INTERFACE ====================
-2018-01-21 19:52:05.5033121 UTC
+2018-01-22 18:18:34.4101104 UTC
 
 interface main:Main 8022
-  interface hash: a1ccbbf667df1839d8a4fddb27457960
-  ABI hash: 2d42d1e06536645588fefdb90b40c1e0
+  interface hash: 8ea0d3d8e57a9794dd3eb08d053bbb93
+  ABI hash: 35064fb9de4ddc9f86dbd8ac3f5df195
   export-list hash: 2bb4b7221e947e536c4775427fa93960
   orphan hash: 693e9af84d3dfcc71e640e005bdc5e2e
   flag hash: 9a3e5105f4a0a75de562a948cc3c3e8c
@@ -27,10 +27,11 @@ family instance modules: base-4.10.1.0:Control.Applicative
 import  -/  base-4.10.1.0:GHC.Num bee60808f8127e4cda82dd422aa1c6c0
 import  -/  base-4.10.1.0:Prelude a93a9400cc0c816c2ee5f39399baa7a0
 import  -/  base-4.10.1.0:System.IO 1fb8f1d116df69c8750950ac088a90e6
-import  -/  churchNumerals-0.1.0.0:ChurchBool 0f67cb777beacb4c19abaf1ee4184d53
-import  -/  churchNumerals-0.1.0.0:ChurchEq c01bed9ea79cc06868705addf214ebd4
-import  -/  churchNumerals-0.1.0.0:ChurchNumeral d2fb40095cb4227b603cc398f93d9676
-import  -/  churchNumerals-0.1.0.0:ChurchOrd 35cf69b0d6809817ee1e0571e759398e
+import  -/  churchNumerals-0.1.0.0:ChurchBool 146811473a8f317ed6382343a74e3283
+import  -/  churchNumerals-0.1.0.0:ChurchEq 589ef69257e4060d09686eac27226faa
+import  -/  churchNumerals-0.1.0.0:ChurchList 8c935c4ee255d65263a3781c8804731f
+import  -/  churchNumerals-0.1.0.0:ChurchNumeral b2aadc498dcd37ed6a34aaa9fe449778
+import  -/  churchNumerals-0.1.0.0:ChurchOrd e654fc29abb0f98cd3ff4c2975b8fae0
 import  -/  ghc-prim-0.5.1.1:GHC.Types b1fd0716441595db508c1a74387bf394
 9d72b2fddb818bcd8919052935e0f1f3
   $trModule :: GHC.Types.Module
@@ -50,12 +51,12 @@ e5875966b74dad2d29772660b8a75e33
 d026be77cb9ced20e35a61514e0458aa
   $trModule4 :: GHC.Prim.Addr#
   {- HasNoCafRefs, Unfolding: ("main"#) -}
-80c375d9daa7b0a4fe45fb25fdeaffd5
+73fa73975fee6cfa6c9d17cf9011a6e3
   main :: GHC.Types.IO ()
   {- Arity: 1, Strictness: <S,U>,
      Unfolding: InlineRule (0, True, True)
                 Main.main1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R)) -}
-1aebc148670fc8b3537dd46ad6a1e09c
+4a6e7bea03bf8683aa78e994cf677590
   main1 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
@@ -139,14 +140,14 @@ dcc4c981a164184b20afae211f9c9eef
 2640913f39027bb06e5d392820d718e9
   main19 :: GHC.Prim.Addr#
   {- HasNoCafRefs, Unfolding: ("4 < 1 ?"#) -}
-5b47b6fca4d9fac3498ed6929ba8b158
+a784671c423171edcd086527bfed8d6b
   main2 :: [GHC.Types.Char]
   {- Strictness: m2,
      Unfolding: (GHC.Types.:
                    @ GHC.Types.Char
                    GHC.Show.$fShow(,)3
                    Main.main3) -}
-7d006951161d7dfe29537c0448d48497
+f7c08ec7339fda41c3472bc02125e648
   main20 ::
     GHC.Prim.State# GHC.Prim.RealWorld
     -> (# GHC.Prim.State# GHC.Prim.RealWorld, () #)
@@ -154,12 +155,12 @@ dcc4c981a164184b20afae211f9c9eef
      Unfolding: (GHC.TopHandler.runMainIO1
                    @ ()
                    Main.main1 `cast` (Sym (GHC.Types.N:IO[0] <()>_R))) -}
-75cd718f194202e008bc500576c2f5cc
+fe154d34c912e5a53d59e33215ef3a79
   main3 :: GHC.Base.String
   {- Unfolding: (GHC.Show.showLitString
                    (Main.main4 ChurchBool.$fShow(->)3 ChurchBool.$fShow(->)1)
                    GHC.Show.$fShow[]1) -}
-3fbd63aea55decdc1ec07324b5cb7e8d
+1d55fc9f0fd9399e792479b3ba735b5e
   main4 :: [GHC.Types.Char] -> [GHC.Types.Char] -> [GHC.Types.Char]
   {- Unfolding: (ChurchNumeral.$w$c.==
                    Main.main6
@@ -170,7 +171,7 @@ dcc4c981a164184b20afae211f9c9eef
   {- Arity: 2, HasNoCafRefs, Strictness: <C(S),1*C1(U)><L,U>,
      Unfolding: InlineRule (2, True, True)
                 (\ @ a (f :: a -> a) (x :: a) -> f x) -}
-9bbc3ecc787d700c7fe25713af5e34ec
+06172a1eaf5fcbecad3ea5fb4e84025c
   main6 :: ChurchNumeral.CNum
   {- Unfolding: (case ChurchNumeral.$w$cfromInteger
                         Main.main8 of ww { Unit# ww1 ->
@@ -190,7 +191,7 @@ eade2364cabc36f722319067dda0ce53
                    @ GHC.Types.Char
                    GHC.Show.$fShow(,)3
                    Main.main10) -}
-3aeba5fc42fd702538f0601b0cd449b8
+5b10e2c6ede9397513821490a1252791
   main_four :: ChurchNumeral.CNum
   {- HasNoCafRefs, Strictness: m,
      Unfolding: (ChurchNumeral.CNum Main.main7) -}
