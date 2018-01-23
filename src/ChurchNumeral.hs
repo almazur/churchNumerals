@@ -1,9 +1,10 @@
 {-# LANGUAGE RankNTypes #-}
-module ChurchNumeral ((.==),zero,inc) where
+module ChurchNumeral (CNum,instCNum,(.==),zero,inc,dec,isZero,cDiv,cMod,cDivMod) where
     import Prelude
     import ChurchBool 
     import ChurchEq
     import ChurchOrd 
+    import Test.QuickCheck
 
     --type CNum a = (a -> a) -> a -> a
     -- doesn't work for higher rank types
@@ -49,7 +50,12 @@ module ChurchNumeral ((.==),zero,inc) where
         signum n = cIf (n .== zero) zero (inc zero)
         fromInteger i = if i == 0
             then zero
-            else inc(fromInteger(i-1))
+            else inc(fromInteger(abs(i)-1))
+      
+    instance Arbitrary CNum where
+        arbitrary = do
+            Positive x <- arbitrary
+            return $ fromInteger (x)
   
     churchToInteger :: CNum -> Int
     churchToInteger cNum = instCNum cNum (+1) $ 0
@@ -60,6 +66,7 @@ module ChurchNumeral ((.==),zero,inc) where
     cDiv :: CNum -> CNum -> CNum
     cDiv m n = cIf (m .< n) (zero) (one + cDiv (m - n) n)
     
+    cDivMod :: CNum -> CNum -> (CNum,CNum)
     cDivMod m n = (cDiv m n,cMod m n)
 
     --(.^) :: CNum -> CNum -> CNum  

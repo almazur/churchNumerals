@@ -2,6 +2,10 @@
 
 import Test.HUnit
 import HUnitTests
+import QCheckTests
+import Test.QuickCheck
 
-main :: IO Counts
-main = do runTestTT tests
+main :: IO ()
+main = do 
+    foldr (>>) (return ()) (fmap runTestTT tests)
+    quickCheck prop1
