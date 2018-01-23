@@ -44,7 +44,8 @@ module ChurchNumeral (CNum,instCNum,zero,one,inc,dec,isZero,cDiv,cMod,cDivMod,(.
 
     -- instances
     instance CEq CNum where
-        m .== n = cAnd (isZero (m - n)) ((isZero ((n - m))))
+        --m .== n = cAnd (isZero (m - n)) ((isZero ((n - m))))
+        m .== n = (isZero (m - n)) .&& ((isZero (n - m)))
     
     instance Eq CNum where
         m == n = (m .== n) True False
