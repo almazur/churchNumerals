@@ -4,9 +4,10 @@ import ChurchBool
 import ChurchEq
 import ChurchOrd
 import ChurchNumeral
-import ChurchList
+import Functions
+
     
 main :: IO ()
 main = do
-    let num = instCNum (fromInteger 4) (+3) 5
-    print (num)
+    print (gcd' (fromInteger 20) (fromInteger 15))
+    print (gcd'' (fromInteger 20) (fromInteger 15))

@@ -37,6 +37,7 @@ library
       ChurchList
       ChurchNumeral
       ChurchOrd
+      Functions
   other-modules:
       Paths_churchNumerals
   default-language: Haskell2010

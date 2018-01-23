@@ -6,7 +6,6 @@ import ChurchBool
 import ChurchEq
 
 class CEq c => COrd c where
-    --ewentualnie: cCompare :: a -> a -> Ordering
     (.>) :: c -> c -> CBool
     (.<) :: c -> c -> CBool
     (.>=) :: c -> c -> CBool
@@ -18,4 +17,4 @@ class CEq c => COrd c where
     x .>= y = cNot (x .< y)
     cMin x y = cIf (x .< y) x y
     cMax x y = cIf (x .< y) y x
-    {-# MINIMAL (.<=) #-} -- ewentualnie {-# MINIMAL (.<=) | cCompare #-}
+    {-# MINIMAL (.<=) #-}

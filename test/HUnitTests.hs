@@ -4,6 +4,7 @@ import ChurchBool
 import ChurchNumeral
 import ChurchEq
 import ChurchOrd
+import Functions
 import Test.HUnit
 
 -- testcases for basic church numerals operations
@@ -36,7 +37,19 @@ caseB3 = TestCase (assertEqual "cMin (inc zero) zero == zero" zero (cMin (inc ze
 testB :: Test
 testB = TestList [TestLabel "caseB1" caseB1, TestLabel "caseB2" caseB2,TestLabel "caseB3" caseB3]
 
+-- testcases for gcd' and gcd''
+caseD1 = TestCase (assertEqual "gcd' twenty fifteen == five" (fromInteger 5) (gcd' (fromInteger 20) (fromInteger 15)))
+caseD2 = TestCase (assertEqual "gcd'' twenty fifteen == five" (fromInteger 5) (gcd'' (fromInteger 20) (fromInteger 15)))
+caseD3 = TestCase (assertEqual "gcd' three four == one" (fromInteger 1) (gcd' (fromInteger 3) (fromInteger 4)))
+caseD4 = TestCase (assertEqual "gcd'' three four == one" (fromInteger 1) (gcd'' (fromInteger 3) (fromInteger 4)))
+caseD5 = TestCase (assertEqual "gcd' two zero == two" (fromInteger 2) (gcd' (fromInteger 2) zero))
+caseD6 = TestCase (assertEqual "gcd'' two zero == two" (fromInteger 2) (gcd'' (fromInteger 2) zero))
+
+testD :: Test
+testD = TestList [TestLabel "caseD1" caseD1, TestLabel "caseD2" caseD2,TestLabel "caseD3" caseD3,
+    TestLabel "caseD4" caseD4,TestLabel "caseD5" caseD5, TestLabel "caseD6" caseD6]
+
 tests :: [Test]
-tests = [testA,testB,testC]
+tests = [testA,testB,testC,testD]
 
 
