@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 5e62bdf956570091d0b34e59decc02e3c338761c3c5bba9f47a257cb45736c0a
+-- hash: ae7fa2746890ace3c50789664435a0f4da740fee3605814d0621e142ab34ef9f
 
 name:           churchNumerals
 version:        0.1.0.0
@@ -27,9 +27,10 @@ source-repository head
 
 library
   hs-source-dirs:
-      src
+      src, test
   build-depends:
       base >=4.7 && <5
+    , QuickCheck
   exposed-modules:
       ChurchBool
       ChurchEq
@@ -61,6 +62,10 @@ test-suite churchNumerals-test
   build-depends:
       base >=4.7 && <5
     , churchNumerals
+    , HUnit
+    , QuickCheck
   other-modules:
+      HUnitTests
+      QCheckTests
       Paths_churchNumerals
   default-language: Haskell2010
