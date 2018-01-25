@@ -8,6 +8,7 @@ module ChurchBool(
         cNot,
         (.&&),
         (.||),
+        cXor,
         cIf,
         toString,
         toBool,
@@ -68,3 +69,9 @@ module ChurchBool(
     instance a ~ String => Show (a -> a -> a) where
         show cb = cb "cTrue" "cFalse"
 
+    {-
+    instance a ~ Bool => Arbitrary (a -> a -> a) where
+        arbitrary = do
+            b <- arbitrary
+            return $ fromBool (b)
+    -}
