@@ -1,63 +1,53 @@
 {-# LANGUAGE FlexibleInstances, RankNTypes, TypeFamilies  #-}
+
+-- | Church encoded Bool equivalent and related functions
 module ChurchBool
-    (CBool,cTrue,cFalse,cNot,cAnd,cOr,cIf,toString
+    (CBool,cTrue,cFalse,cNot,(.&&),(.||),cIf,toString
     ) where
+
+-- | Bool type eqivalent
 type CBool = forall a. a -> a -> a
 
-cTrue,cFalse :: CBool
---cTrue l _ = l
---cFalse _ r = r
+-- | Church encoded True
+cTrue :: CBool
 cTrue true false = true
-cFalse true false = false
---IMO czytelniej - Mateusz
 
---Logic operators
+-- | Church encoded False
+cFalse :: CBool
+cFalse true false = false
+
+-- | Church encoded not
 cNot :: CBool -> CBool
 cNot a = a (cFalse) (cTrue)
 
-cAnd :: CBool -> CBool -> CBool
-cAnd x y = x y x
+-- | Church encoded and operator
+(.&&) :: CBool -> CBool -> CBool
+x .&& y = x y x
 
-cOr :: CBool -> CBool -> CBool
-cOr x y = x x y
+-- | Church encoded or operator
+(.||) :: CBool -> CBool -> CBool
+x .|| y = x x y
 
+-- | Church encoded xor
 cXor :: CBool -> CBool -> CBool
 cXor x y = x (cNot y) y
 
--- syntactic sugar
+-- | Syntactic sugar 
 cIf :: CBool -> CBool
---cIf cond = cond
 cIf cond trueStat falseStat = cond (trueStat) (falseStat)
---IMO czytelniej - Mateusz
 
+-- | returns String representation of CBool
 toString :: CBool -> String
 toString b = b "cTrue" "cFalse"
 
 
-
--- wzięte stąd: https://gist.github.com/tmhedberg/1535396
--- TypeFamilies do ogarnięcia lub funkcja do zmiany i używamy powyższego toString
--- o TypeFamilies: https://wiki.haskell.org/GHC/Type_families
--- "in type theory is a partial function at the type level"
-instance a ~ String => Show (a -> a -> a) where
-    show cb = cb "cTrue" "cFalse"
-
+{- | Eq instance for church Bool type;
+Solution of the problem with writing Eq and Show instance taken from: https://gist.github.com/tmhedberg/1535396;
+"in type theory is a partial function at the type level", more about TypeFamilies: https://wiki.haskell.org/GHC/Type_families-}
 instance a ~ String => Eq (a -> a -> a) where
     b1 == b2 = (show b1) == (show b2)
 
+-- | Show instance for church Bool
+instance a ~ String => Show (a -> a -> a) where
+    show cb = cb "cTrue" "cFalse"
 
---data CBool = CBool {instCBool :: forall a. a -> a -> a}
-
---cTrue,cFalse :: CBool
---cTrue = CBool (\t -> \_ -> t)
---cFalse = CBool (\_ -> \f -> f)
-
---eval :: CBool -> a -> a -> a
---eval (CBool cb) a b = cb a b
-
---cNot :: CBool -> CBool
---cNot a = instCBool a (cFalse) (cTrue)
-
-
---cAnd :: CBool -> CBool -> CBool
---cAnd x y = instCBool x(y)(x)
