@@ -1,9 +1,10 @@
 {-# LANGUAGE RankNTypes #-}
-module ChurchNumeral ((.==),zero,inc) where
+module ChurchNumeral (CNum,instCNum,zero,one,inc,dec,isZero,cDiv,cMod,cDivMod,(.^)) where
     import Prelude
     import ChurchBool 
     import ChurchEq
     import ChurchOrd 
+    import Test.QuickCheck
 
     --type CNum a = (a -> a) -> a -> a
     -- doesn't work for higher rank types
@@ -26,13 +27,30 @@ module ChurchNumeral ((.==),zero,inc) where
     one :: CNum
     one = inc zero
 
-    -- instances, zakomentowane te ze zwykłymi operatorami
+    churchToInteger :: CNum -> Int
+    churchToInteger cNum = instCNum cNum (+1) $ 0
+
+    cMod :: CNum -> CNum -> CNum
+    cMod m n = cIf (m .< n) (m) (cMod (m - n) n)
+
+    cDiv :: CNum -> CNum -> CNum
+    cDiv m n = cIf (m .< n) (zero) (one + cDiv (m - n) n)
+    
+    cDivMod :: CNum -> CNum -> (CNum,CNum)
+    cDivMod m n = (cDiv m n,cMod m n)
+
+    (.^) :: CNum -> CNum -> CNum  
+    base .^ exp = CNum {instCNum = (instCNum exp) (instCNum base)}
+
+    -- instances
     instance CEq CNum where
-        --m .== n = cAnd (isZero (m .- n)) ((isZero ((n .- m))))
-        m .== n = cAnd (isZero (m - n)) ((isZero ((n - m))))
+        --m .== n = cAnd (isZero (m - n)) ((isZero ((n - m))))
+        m .== n = (isZero (m - n)) .&& ((isZero (n - m)))
+    
+    instance Eq CNum where
+        m == n = (m .== n) True False
     
     instance COrd CNum where
-        --m .<= n = (isZero (m .- n))
         m .<= n = (isZero (m - n))
     
     instance Show CNum where
@@ -46,40 +64,9 @@ module ChurchNumeral ((.==),zero,inc) where
         signum n = cIf (n .== zero) zero (inc zero)
         fromInteger i = if i == 0
             then zero
-            else inc(fromInteger(i-1))
-  
-    churchToInteger :: CNum -> Int
-    churchToInteger cNum = instCNum cNum (+1) $ 0
-
-    cMod :: CNum -> CNum -> CNum
-    cMod m n = cIf (m .< n) (m) (cMod (m - n) n)
-
-    cDiv :: CNum -> CNum -> CNum
-    cDiv m n = cIf (m .< n) (zero) (one + cDiv (m - n) n)
-    
-    cDivMod m n = (cDiv m n,cMod m n)
-
-    --(.^) :: CNum -> CNum -> CNum  
-    --base .^ exp = (instCNum exp) (instCNum base)
-    --IMO takie nazwy czytelnie pokazują co się dzieje - Mateusz
-    --error :<
-    --      Couldn't match expected type ‘CNum’
-    --      with actual type ‘(a0 -> a0) -> a0 -> a0’
-
-
-    --Rozumiem że to już niepotrzebne :)
-    {-
-    (.+) :: CNum -> CNum -> CNum
-    m .+ n = instCNum n inc m
-
-    (.-) :: CNum -> CNum -> CNum
-    m .- n = instCNum n dec m
-
-    (.*) :: CNum -> CNum -> CNum
-    (CNum m) .* (CNum n) = CNum (m.n)
-
-    church :: Int -> CNum
-    church i = if i == 0
-        then zero
-        else inc(church(i-1))
-    -}
+            else inc(fromInteger(abs(i)-1))
+      
+    instance Arbitrary CNum where
+        arbitrary = do
+            Positive x <- arbitrary
+            return $ fromInteger (x)
