@@ -8,4 +8,6 @@ import Test.QuickCheck
 main :: IO ()
 main = do 
     foldr (>>) (return ()) (fmap runTestTT tests)
-    quickCheck prop1
+    foldr (>>) (return ()) (fmap quickCheck prop_Laws)
+    quickCheck prop_AssociativeLaw
+    quickCheck prop_MulDistribVersusSub
