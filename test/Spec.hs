@@ -13,4 +13,4 @@ main = do
     --foldr (>>) (return ()) (fmap quickCheck prop_2)
     --foldr (>>) (return ()) (fmap quickCheck prop_1)
     foldr (>>) (return ()) (fmap quickCheck prop_cBool1)
-    --foldr (>>) (return ()) (fmap quickCheck prop_cBool2)
+    foldr (>>) (return ()) (fmap quickCheck prop_cBool2)

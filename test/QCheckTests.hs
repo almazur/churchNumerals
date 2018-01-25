@@ -69,39 +69,40 @@ module QCheckTests (
 
     prop_1=[prop_IncSumEq,prop_DecSubEq,prop_MulOne,prop_AddZero,prop_isZero,prop_Power1,prop_Power2,prop_isZero]
 
-    --double not
-    prop_Not a = (fromBool a) == cNot (cNot (fromBool a))
-        where types = (a::Bool)
+    --Doubled Not
+    prop_Not a = a == cNot (cNot a)
+        where types = (a::CBool)
 
     --And
-    prop_And1 a = ((fromBool a) .&& cFalse) == cFalse
-        where types = (a::Bool)
-    prop_And2 a = ((fromBool a) .&& cTrue) == a
-        where types = (a::Bool)        
+    prop_And1 a = a .&& cFalse == cFalse
+        where types = (a::CBool)
+    prop_And2 a = a .&& cTrue == a
+        where types = (a::CBool)        
     --Or
-    prop_Or1 a = ((fromBool a) .|| cFalse) == a
-        where types = (a::Bool)
-    prop_Or2 a = ((fromBool a) .|| cTrue) == cTrue
-        where types = (a::Bool)
+    prop_Or1 a = a .|| cFalse == a
+        where types = (a::CBool)
+    prop_Or2 a = a .|| cTrue == cTrue
+        where types = (a::CBool)
     --Xor
-    prop_Xor1 a = ((fromBool a) `cXor` (fromBool a)) ==cFalse  
-        where types = (a::Bool)
-    prop_Xor2 a = ((fromBool a) `cXor` cFalse) == a  
-        where types = (a::Bool)        
+    prop_Xor1 a = a `cXor` a ==cFalse  
+        where types = (a::CBool)
+    prop_Xor2 a = a `cXor` cFalse == a  
+        where types = (a::CBool)        
 
     prop_cBool1=[prop_Not,prop_And1,prop_And2,prop_Or1,prop_Or2,prop_Xor1,prop_Xor2]
 
-    {-}
+    
     --Xor
-    prop_Xor3 a b = (fromBool a) cXor (fromBool b) == (cNot(fromBool a) .&& (fromBool b)) .|| ((fromBool a) .&& cNot(fromBool b))
-        where types = (a::Bool, b::Bool)
-    prop_Xor4 a b = cNot((fromBool a) cXor (fromBool b)) == ((fromBool a) .&& (fromBool b)) .|| (cNot(fromBool a) .&& cNot(fromBool b))
-        where types = (a::Bool, b::Bool)  
-    de Morgane Law
-    prop_DeMorgane1 a b = cNot ((fromBool a) .|| (fromBool b)) == (cNot (fromBool a)) .&& (cNot (fromBool b))
-        where types = (a::Bool, b::Bool)
-    prop_DeMorgane2 a b = cNot ((fromBool a) .&& (fromBool b)) == (cNot (fromBool a)) .|| (cNot (fromBool b))
-        where types = (a::Bool, b::Bool)
+    prop_Xor3 a b = a `cXor` b == (cNot a .&& b) .|| (a .&& (cNot b))
+        where types = (a::CBool, b::CBool)
+    prop_Xor4 a b = cNot(a `cXor` b) == (a .&& b) .|| (cNot a .&& (cNot b))
+        where types = (a::CBool, b::CBool)  
 
-    prop_cBool2=[prop_Xor3,prop_DeMorgane1,prop_DeMorgane2]        
-    -}
+    --de Morgane Law
+    prop_DeMorgane1 a b = cNot (a .|| b) == (cNot a .&& (cNot b))
+        where types = (a::CBool, b::CBool)
+    prop_DeMorgane2 a b = cNot (a .&& b) == cNot a .|| (cNot b)
+        where types = (a::CBool, b::CBool)
+
+    prop_cBool2=[prop_Xor3,prop_Xor4,prop_DeMorgane1,prop_DeMorgane2]        
+    
