@@ -10,4 +10,4 @@ main = do
     foldr (>>) (return ()) (fmap runTestTT tests)
     foldr (>>) (return ()) (fmap quickCheck prop_Laws)
     quickCheck prop_AssociativeLaw
-    quickCheck prop_MulDistribVersusSub
+    --quickCheck prop_MulDistribVersusSub

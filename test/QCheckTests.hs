@@ -5,10 +5,16 @@ import ChurchNumeral
 import ChurchEq
 import ChurchOrd
 import Test.QuickCheck
+import Test.QuickCheck.Property
+import Test.QuickCheck.Function
+import Test.QuickCheck.All
 
 -- Multiply Distribution law
-prop_MulDistribVersusAdd :: CNum -> CNum -> CNum -> Bool
+--prop_MulDistribVersusAdd :: CNum -> CNum -> CNum -> Bool
+
 prop_MulDistribVersusAdd a b c = (a+b)*c == (a*c)+(b*c) 
+    where types = a,b,c::CNum
+
 --prop_MulDistribVersusSum :: CNum -> CNum -> CNum -> Bool
 prop_MulDistribVersusSub a b c = (a > b) ==> ((a-b)*c == (a*c)-(b*c)) 
 
