@@ -18,8 +18,8 @@ module ChurchNumeral (
     import Prelude
     import ChurchBool 
     import ChurchEq
-    import ChurchOrd 
-    import Test.QuickCheck
+    import ChurchOrd
+    import Test.QuickCheck 
 
     -- type CNum a = (a -> a) -> a -> a
     -- doesn't work for higher rank types

@@ -14,64 +14,67 @@ module ChurchBool(
         toBool,
         fromBool,
     ) where
-
+    
+    import Prelude
+    import Test.QuickCheck.Arbitrary
+    
     -- | Bool type eqivalent
-    type CBool = forall a. a -> a -> a
-    --data CBool = CBool {instCBool :: forall a. a -> a -> a}
+    --type CBool = forall a. a -> a -> a
+    data CBool = CBool {instCBool :: forall a. a -> a -> a}
 
     -- | Church encoded True
     cTrue :: CBool
-    cTrue true false = true
+    cTrue = CBool (\true false -> true)
 
     -- | Church encoded False
     cFalse :: CBool
-    cFalse true false = false
+    cFalse = CBool (\true false -> false)
 
     -- | Church encoded Not operator
     cNot :: CBool -> CBool
-    cNot a = a (cFalse) (cTrue)
+    cNot cb = (instCBool cb) (cFalse) (cTrue)
 
     -- | Church encoded And operator
     (.&&) :: CBool -> CBool -> CBool
-    x .&& y = x y x
+    x .&& y = (instCBool x) y x
 
     -- | Church encoded Or operator
     (.||) :: CBool -> CBool -> CBool
-    x .|| y = x x y
+    x .|| y = (instCBool x) x y
 
     -- | Church encoded Xor operator
     cXor :: CBool -> CBool -> CBool
-    cXor x y = x (cNot y) y
+    cXor x y = (instCBool x) (cNot y) y
 
-    -- | Syntactic sugar 
-    cIf :: CBool -> CBool
-    cIf cond trueStat falseStat = cond (trueStat) (falseStat)
+    -- | If statement
+    cIf :: CBool -> stat -> stat -> stat
+    cIf cond trueStat falseStat = (instCBool cond) trueStat falseStat
 
     -- | returns String representation of CBool
     toString :: CBool -> String
-    toString b = b "cTrue" "cFalse"
+    toString cb = (instCBool cb) "cTrue" "cFalse"
 
-    --returns Bool representation of CBool
+    -- | returns Bool representation of CBool
     toBool :: CBool -> Bool
-    toBool cb = cb True False
+    toBool cb = (instCBool cb) True False
 
-    --returns CBool representation of Bool
+    -- | returns CBool representation of Bool
     fromBool :: Bool -> CBool
     fromBool b = if b then cTrue else cFalse
 
-    {- | Eq instance for church Bool type;
-    Solution of the problem with writing Eq and Show instance taken from: https://gist.github.com/tmhedberg/1535396;
-    "in type theory is a partial function at the type level", more about TypeFamilies: https://wiki.haskell.org/GHC/Type_families-}
-    instance a ~ String => Eq (a -> a -> a) where
-        b1 == b2 = (show b1) == (show b2)
+    instance Eq CBool where
+        cb1 == cb2 = (show cb1) == (show cb2)
 
     -- | Show instance for church Bool
-    instance a ~ String => Show (a -> a -> a) where
-        show cb = cb "cTrue" "cFalse"
-
-    {-
-    instance a ~ Bool => Arbitrary (a -> a -> a) where
+    instance Show CBool where
+        show cb = (instCBool cb) "cTrue" "cFalse"
+    
+    instance Arbitrary CBool where
         arbitrary = do
-            b <- arbitrary
-            return $ fromBool (b)
-    -}
+            x <- arbitrary
+            return $ fromBool (x)
+
+
+    {- Eq instance for church Bool type;
+    Solution of the problem with writing Eq and Show instance taken from: https://gist.github.com/tmhedberg/1535396;
+    "in type theory is a partial function at the type level", more about TypeFamilies: https://wiki.haskell.org/GHC/Type_families-}
