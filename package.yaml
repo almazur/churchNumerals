@@ -2,9 +2,9 @@ name:                churchNumerals
 version:             0.1.0.0
 github:              "githubuser/churchNumerals"
 license:             BSD3
-author:              "Author name here"
-maintainer:          "example@example.com"
-copyright:           "2018 Author name here"
+author:              "Aleksandra Mazur & Mateusz Buta"
+maintainer:          ""
+copyright:           "2018 Aleksandra Mazur & Mateusz Buta"
 
 extra-source-files:
 - README.md
