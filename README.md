@@ -1,1 +1,1 @@
-# churchNumerals
+# Church encoded types and functions
