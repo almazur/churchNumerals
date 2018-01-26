@@ -19,7 +19,7 @@ module Functions (
             (cIf (n .<= m) (gcd' (cMod m n) n) (gcd' (cMod n m) m))
             m)
 
-    -- | Fixed point operator       
+    -- | Fixed point combinator       
     fix :: (a -> a) -> a
     fix f = let {x = f x} in x
 
