@@ -21,10 +21,7 @@ module ChurchNumeral (
     import ChurchOrd
     import Test.QuickCheck 
 
-    -- type CNum a = (a -> a) -> a -> a
-    -- doesn't work for higher rank types
-
-    -- | Church Numeral data declaration
+    -- | Church Numeral type eqivalent
     data CNum = CNum {instCNum :: forall a. (a -> a) -> a -> a}
 
     -- | Church increment function
